@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threads</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1><a href="topic">Create Threads</a></h1>
+        <button class="show-messages-btn" onclick="showMessages()">Show All Threads</button>
+        <div class="threads-container">
+            <h1>All the threads are here</h1>
+            <% messages.forEach(function(info) { %>
+                <div class="thread">
+                    <h2>Post by: <%= info.user.name %></h2>
+                    <p><%= info.topic %></p>
+                    <p><%= info.content %></p>
+                    <form class="reply-form" action="/reply" method="post">
+                        <input type="hidden" name="topicId" value="<%= info._id %>">
+                        <i class="fas fa-comment" onclick="toggleInput(this)"> reply</i>
+                        <input type="text" name="replycontent" placeholder="Write your answer..." class="hidden">
+                        <input type="submit" value="Post" class="hidden">
+                    </form>
+                    <button class="show-replies-btn" onclick="toggleReplies(this)">Show Replies</button>
+                    <div class="replies-container">
+                        <% info.replies.forEach(function(reply) { %>
+                            <div class="reply">
+                                <p><strong><%= reply.user.name %>:</strong> <%= reply.replycontent %></p>
+                                <button type="button" class="infoid-btn" data-query-id="<%= info._id %>">infoid</button>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>

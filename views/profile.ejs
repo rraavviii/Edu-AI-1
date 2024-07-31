@@ -1,0 +1,67 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="mainForm" action="/profile" method="post">
+        <button type="button" id="createThreadBtn">Create Thread</button>
+        <div id="threadFields" class="hidden">
+            <input type="text" id="topicField" name="topic" placeholder="Topic">
+            <input type="text" id="contentField" name="content" placeholder="Content">
+            <input type="file" id="docField" name="doc" placeholder="Document(optional)">
+            <button type="button" id="submitBtn">Submit</button>
+        </div>
+    </form>
+
+    <div id="displayContent" class="hidden">
+        <h3>Topic:</h3>
+        <p id="displayTopic"></p>
+        <h3>Content:</h3>
+        <p id="displayContentText"></p>
+    </div>
+
+    <script>
+        document.getElementById('createThreadBtn').addEventListener('click', function() {
+            document.getElementById('threadFields').classList.remove('hidden');
+            this.style.display = 'none';
+        });
+
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            // Get the values from the input fields
+            const topic = document.getElementById('topicField').value;
+            const content = document.getElementById('contentField').value;
+
+            // Display the values
+            document.getElementById('displayTopic').textContent = topic;
+            document.getElementById('displayContentText').textContent = content;
+            document.getElementById('displayContent').classList.remove('hidden');
+
+            // Hide the input fields and submit button
+            document.getElementById('threadFields').classList.add('hidden');
+            document.getElementById('createThreadBtn').style.display = 'block';
+        });
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1><a href="topic">Create Thread</a></h1>
+</body>
+</html>
