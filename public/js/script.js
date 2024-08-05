@@ -24,6 +24,11 @@ function toggleReplies(button) {
     }
 }
 
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const infoIdButtons = document.querySelectorAll('.infoid-btn');
 
@@ -31,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             const queryId = button.getAttribute('data-query-id');
 
-            // Send the query ID to the server using fetch
             fetch('/log-query-id', {
                 method: 'POST',
                 headers: {
@@ -41,10 +45,61 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => response.json())
             .then(data => {
-                // console.log('Query ID sent to server:', data.queryId);
+                const summaryElement = document.createElement('p');
+                summaryElement.innerHTML = `<strong>Summary:</strong> ${data.summary}`;
+                button.insertAdjacentElement('afterend', summaryElement);
             })
             .catch(error => {
                 console.error('Error sending query ID:', error);
+            });
+        });
+    });
+
+    // Function to check for flagged replies and update the UI
+    const flagReplyButtons = document.querySelectorAll('.flag-reply-btn');
+    
+    flagReplyButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const threadElement = button.closest('.thread');
+            const replies = threadElement.querySelectorAll('.reply');
+            
+            const repliesData = Array.from(replies).map(reply => ({
+                replycontent: reply.querySelector('p').textContent,
+                user: {
+                    _id: reply.getAttribute('data-user-id')
+                },
+                _id: reply.getAttribute('data-reply-id')
+            }));
+
+            fetch('/flagged-replies', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ replies: repliesData })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const flaggedReplies = data.flaggedReplies;
+                replies.forEach(reply => {
+                    const replyId = reply.getAttribute('data-reply-id');
+                    if (flaggedReplies.includes(replyId)) {
+                        // Create a threat icon using Font Awesome and insert it before the reply content
+                        const threatIcon = document.createElement('i');
+                        threatIcon.className = 'fas fa-exclamation-triangle'; // Font Awesome icon class
+                        threatIcon.style.color = 'red'; // Change icon color if needed
+                        threatIcon.style.marginRight = '5px'; // Space between icon and text
+
+                        const replyContent = reply.querySelector('p');
+                        replyContent.insertBefore(threatIcon, replyContent.firstChild);
+
+                        // Optionally, you can change text color or style
+                        replyContent.style.color = 'red'; // Change text color
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error checking flagged replies:', error);
             });
         });
     });

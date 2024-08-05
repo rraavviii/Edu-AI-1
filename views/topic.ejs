@@ -2,19 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edu AI</title>
+   <link rel="stylesheet" href="./css/style3.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  
 </head>
 <body>
-    <form id="mainForm" action="/topic" method="post">
-        
-        <div id="threadFields" class="hidden">
-            <input type="text" id="topicField" name="topic" placeholder="Topic">
-            <input type="text" id="contentField" name="content" placeholder="Content">
-            <input type="file" id="docField" name="doc" placeholder="Document(optional)">
-            <button type="submit" id="submitBtn">Submit</button>
-        </div>
-    </form>
+    <div class="container">
+        <header>
+            <img src="./images/logo.jpg" alt="Edu AI Logo" class="logo">
+            <p>Express. Engage. Elevate.</p>
+        </header>
+
+        <main>
+            <form action="/topic" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="topic">What's on your mind today?</label>
+                    <input type="text" id="topic" name="topic" placeholder="Enter a topic">
+                </div>
+
+                <div class="form-group">
+                    <label for="thoughts">Fortify your thoughts on it. 🖊️</label>
+                    <textarea id="thoughts" name="content" rows="5" placeholder="Enter your thoughts here"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <input type="file" name="doc" id="file" accept=".jpeg,.jpg,.png,.gif,.pdf,.doc,.docx">
+                </div>
+
+                <button type="submit" class="submit-btn">SUBMIT</button>
+            </form>
+
+            <a href="/threads" class="view-posts-btn">Click here to view all the posts</a>
+        </main>
+    </div>
+   
 </body>
 </html>
