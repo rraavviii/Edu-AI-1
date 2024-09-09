@@ -29,7 +29,7 @@ from bson.objectid import ObjectId
 from summariser_agent import summarise
 
 def log_query_id(query_id):
-    client = MongoClient('mongodb://127.0.0.1:27017/edutech')
+    client = MongoClient('process.env.Mongo_uri')
 
     db = client['edutech']
     collection = db['replies']
